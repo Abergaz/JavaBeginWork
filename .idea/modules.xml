@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/1.OOP_Free/1.OOP_Free.iml" filepath="$PROJECT_DIR$/1.OOP_Free/1.OOP_Free.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.OOP_n/2.OOP_n.iml" filepath="$PROJECT_DIR$/2.OOP_n/2.OOP_n.iml" />
       <module fileurl="file://$PROJECT_DIR$/JavaBeginWork.iml" filepath="$PROJECT_DIR$/JavaBeginWork.iml" />
     </modules>
   </component>
