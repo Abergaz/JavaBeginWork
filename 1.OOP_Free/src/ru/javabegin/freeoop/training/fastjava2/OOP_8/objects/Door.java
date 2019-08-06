@@ -7,6 +7,7 @@ public class Door {
     public void open(){
 
     }
+
     public void close(boolean keyClose){
 
     }
