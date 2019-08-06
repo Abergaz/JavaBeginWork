@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/1.FreeOOP/1.FreeOOP.iml" filepath="$PROJECT_DIR$/1.FreeOOP/1.FreeOOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaBeginWork.iml" filepath="$PROJECT_DIR$/JavaBeginWork.iml" />
+    </modules>
+  </component>
+</project>
