@@ -1,4 +1,4 @@
-package ru.javabegin.freeoop.training.fastjava2.OOP_8.objects;
+package ru.javabegin.training.fastjava2.OOP_8.objects;
 
 public class Door {
     private String color;

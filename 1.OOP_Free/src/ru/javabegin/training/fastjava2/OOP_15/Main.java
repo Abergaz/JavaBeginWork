@@ -1,6 +1,6 @@
-package ru.javabegin.freeoop.training.fastjava2.OOP_15;
+package ru.javabegin.training.fastjava2.OOP_15;
 
-import ru.javabegin.freeoop.training.fastjava2.OOP_15.objects.Phone;
+import ru.javabegin.training.fastjava2.OOP_15.objects.Phone;
 
 public class Main {
     public static void main(String[] args) {

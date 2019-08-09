@@ -1,4 +1,4 @@
-package ru.javabegin.freeoop.training.fastjava2.OOP_15.objects;
+package ru.javabegin.training.fastjava2.OOP_15.objects;
 
 public class Phone {
     private int ram;

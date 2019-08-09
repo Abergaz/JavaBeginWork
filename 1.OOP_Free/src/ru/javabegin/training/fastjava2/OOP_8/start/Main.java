@@ -1,6 +1,6 @@
-package ru.javabegin.freeoop.training.fastjava2.OOP_8.start;
+package ru.javabegin.training.fastjava2.OOP_8.start;
 
-import ru.javabegin.freeoop.training.fastjava2.OOP_8.objects.House;
+import ru.javabegin.training.fastjava2.OOP_8.objects.House;
 
 public class Main {
     public static void main(String[] args) {

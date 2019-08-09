@@ -1,4 +1,4 @@
-package ru.javabegin.freeoop.training.fastjava2.OOP_12.objects;
+package ru.javabegin.training.fastjava2.OOP_12.objects;
 
 public class Car {
     private String name;
