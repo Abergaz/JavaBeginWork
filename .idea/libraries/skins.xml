@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="skins">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/3.SWING_Free/src/ru/javabegin/training/fastjava2/l3_skins/skins" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/3.SWING_Free/src/ru/javabegin/training/fastjava2/l3_skins/skins" recursive="false" />
+  </library>
+</component>

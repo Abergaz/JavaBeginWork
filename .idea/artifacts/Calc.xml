@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Calc">
+    <output-path>$PROJECT_DIR$/out/production/3.SWING_Free/ru/javabegin/training/fastjava2/l7_jarfiles</output-path>
+    <root id="archive" name="3.SWING_Free.jar">
+      <element id="module-output" name="3.SWING_Free" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/3.SWING_Free/src/ru/javabegin/training/fastjava2/l3_skins/skins/JTattoo.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
