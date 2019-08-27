@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/4.SWING_n/src/ru/javabegin/training/l2_jlgui/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/4.SWING_n/src/ru/javabegin/training/l2_jlgui/lib" recursive="false" />
+  </library>
+</component>
