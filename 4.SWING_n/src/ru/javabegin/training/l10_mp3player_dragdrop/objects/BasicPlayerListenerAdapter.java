@@ -6,8 +6,13 @@ import javazoom.jlgui.basicplayer.BasicPlayerEvent;
 import javazoom.jlgui.basicplayer.BasicPlayerListener;
 
 
-// класс-адаптер, чтобы в анонимных классах переопределять только нужные методы
+/**
+ *  класс-адаптер, чтобы в анонимных классах переопределять только нужные методы
+ *  реализует интфейс слушателя плеера из jlGUI
+ */
+
 public class BasicPlayerListenerAdapter implements BasicPlayerListener{
+
 
     @Override
     public void opened(Object o, Map map) {

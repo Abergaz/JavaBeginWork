@@ -5,10 +5,14 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-// утилита для работы с файлами
+/**
+ *  утилита для работы с файлами
+ */
 public class FileUtils {
 
-    // получить имя файла без расширения
+    /**
+     *получить имя файла без расширения
+     */
     public static String getFileNameWithoutExtension(String fileName) {
         File file = new File(fileName);
         int index = file.getName().lastIndexOf('.');
@@ -18,7 +22,9 @@ public class FileUtils {
         return "noname";
     }
 
-    // получить расширение файла
+    /**
+     * получить расширение файла
+     */
     public static String getFileExtension(File f) {
         String ext = null;
         String s = f.getName();
@@ -30,14 +36,18 @@ public class FileUtils {
         return ext;
     }
 
-    // удалить текущий файл-фильтр и установить новый переданный    
+    /**
+     *  удалить текущий файл-фильтр и установить новый переданный
+     */
     public static void addFileFilter(JFileChooser jfc, FileFilter ff) {
         jfc.removeChoosableFileFilter(jfc.getFileFilter());
         jfc.setFileFilter(ff);
         jfc.setSelectedFile(new File(""));// удалить последнее имя открываемого/сохраняемого файла
     }
 
-    // сохранить объект
+    /**
+     * сохранить объект
+     */
     public static void serialize(Object obj, String fileName) throws Exception {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -52,7 +62,9 @@ public class FileUtils {
         }
     }
 
-    // открыть объект
+    /**
+     * открыть объект
+     */
     public static Object deserialize(String fileName) throws Exception {
         FileInputStream fis = null;
         ObjectInputStream oin = null;

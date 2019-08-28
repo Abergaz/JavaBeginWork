@@ -86,6 +86,9 @@ public class MP3PlayList implements PlayList {
         return true;
     }
 
+    /**
+     * сохранить плей лист в файл
+     */
     @Override
     public boolean savePlaylist(File file) {
         try {
@@ -102,11 +105,14 @@ public class MP3PlayList implements PlayList {
         return false;
     }
 
+    /**
+     * добавить песню в плейлист
+     */
     @Override
     public boolean openFiles(File[] files) {
         
         boolean status = false;
-        
+
         for (File file : files) {
             MP3 mp3 = new MP3(file.getName(), file.getPath());
 
@@ -120,6 +126,9 @@ public class MP3PlayList implements PlayList {
         return status;
     }
 
+    /**
+     * проиграть выбранную в плейлисте песню
+     */
     @Override
     public void playFile() {
         int[] indexPlayList = playlist.getSelectedIndices();// получаем выбранные индексы(порядковый номер) песен
@@ -134,6 +143,9 @@ public class MP3PlayList implements PlayList {
 
     }
 
+    /**
+     * открыть плейлист из файла
+     */
     @Override
     public boolean openPlayList(File file) {
         try {
@@ -147,6 +159,9 @@ public class MP3PlayList implements PlayList {
         return false;
     }
 
+    /**
+     * удалить песни их плейлиста
+     */
     @Override
     public void delete() {
         int[] indexPlayList = playlist.getSelectedIndices();// получаем выбранные индексы(порядковый номер) песен
@@ -168,32 +183,42 @@ public class MP3PlayList implements PlayList {
         }
     }
 
+
+    /**
+     * очистить плейлист
+     */
     @Override
     public void clear() {
         model.clear();
     }
 
+    /**
+     * инициализировать плей лист
+     */
     private void initPlayList() {
    
-        playlist.setModel(model);
-        playlist.setToolTipText("Список песен");
+        playlist.setModel(model); //установить модель для поля playlist типа JList
+        playlist.setToolTipText("Список песен"); //вссплывающая подсказка при наведении мыши на поле playlist
 
+        //добавляем слушателя событий нажатия мышью для поля playlist
         playlist.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 // если нажали левую кнопку мыши 2 раза
                 if (evt.getModifiers() == InputEvent.BUTTON1_MASK && evt.getClickCount() == 2) {
-                    playFile();
+                    playFile();//проигрываем выбранную песню
                 }
             }
         });
 
+        //добавляем слушателя событий нажатия клавиатуры для поля playlist
         playlist.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 int key = evt.getKeyCode();
+                //если нажали enter
                 if (key == KeyEvent.VK_ENTER) {
-                    playFile();
+                    playFile();//проигрываем выбранную песню
                 }
             }
         });

@@ -13,29 +13,34 @@ import ru.javabegin.training.l10_mp3player_dragdrop.objects.BasicPlayerListenerA
 import ru.javabegin.training.l10_mp3player_dragdrop.utils.FileUtils;
 
 
-// реализация плеера  для проигрывания mp3 файлов
+/**
+ *  реализация плеера для проигрывания mp3 файлов
+**/
 public class MP3Player implements Player {
-
-    public static final String MP3_FILE_EXTENSION = "mp3";
-    public static final String MP3_FILE_DESCRIPTION = "Файлы mp3";
-    public static int MAX_VOLUME = 100;
+    public static final String MP3_FILE_EXTENSION = "mp3"; //фильтр для расширения файлов отображаемых в диалоге выбора файлов
+    public static final String MP3_FILE_DESCRIPTION = "Файлы mp3";//описание выбираемых файлов отображаемых в диалоге выбора файлов
+    public static int MAX_VOLUME = 100;//максимальная громкость
 
     private long duration; // длительность песни в секундах
     private int bytesLen; // размер песни в байтах
 
-    private BasicPlayer basicPlayer = new BasicPlayer();// используем библиотеку для реализации проигрывания mp3
+    private BasicPlayer basicPlayer = new BasicPlayer();// используем библиотеку для реализации проигрывания mp3 из jlGUI
     private String currentFileName;// текущая песня
     private double currentVolume;
 
     private long secondsAmount; // сколько секунд прошло с начала проигрывания
 
-    private final PlayControlListener playControlListener;
+    private final PlayControlListener playControlListener; //Слушатель для проигрывателя, для отслеживания начала проигрывания и перемотки песни
 
     public MP3Player(PlayControlListener playControlListener) {
         this.playControlListener = playControlListener;
-      
+
+        //Добавляем к плееру слушателя, это экземпляр нашего класса адаптера с методами заглушками.
         basicPlayer.addBasicPlayerListener(new BasicPlayerListenerAdapter() {
-           
+
+            /**
+             * метод для отслеживания прогресса проигрывания музыки и передвижения бегунка
+             */
             @Override
             public void progress(int bytesread, long microseconds, byte[] pcmdata, Map properties) {
 
@@ -50,14 +55,17 @@ public class MP3Player implements Player {
 
                 if (duration != 0) {
                     int length = ((int) Math.round(secondsAmount * 1000 / duration));
-                    MP3Player.this.playControlListener.processScroll(length);
+                    MP3Player.this.playControlListener.processScroll(length);//сообщаем слушателю проигрывателя что надо передвинуть бегунок
                 }
             }
 
+            /**
+             * метод для отслеживания начала проигрывания песни
+             */
             @Override
             public void opened(Object o, Map map) {
-                duration = (long) Math.round((((Long) map.get("duration"))) / 1000000);
-                bytesLen = (int) Math.round(((Integer) map.get("mp3.length.bytes")));
+                duration = (long) Math.round((((Long) map.get("duration"))) / 1000000); //вычисляем длинну песни в секундах
+                bytesLen = (int) Math.round(((Integer) map.get("mp3.length.bytes"))); //размер песни в байтах
 
                 // если есть mp3 тег для имени - берем его, если нет - вытаскиваем название из имени файла
                 String songName = map.get("title") != null ? map.get("title").toString() : FileUtils.getFileNameWithoutExtension(new File(o.toString()).getName());
@@ -67,10 +75,12 @@ public class MP3Player implements Player {
                     songName = songName.substring(0, 30) + "...";
                 }
 
-                MP3Player.this.playControlListener.playStarted(songName);
-
+                MP3Player.this.playControlListener.playStarted(songName);//устанавливаем имя проигрываемой песни в labelSongName типа JLabel
             }
 
+            /**
+             * метод для отслеживания окончания песни, и перехода к следующей песни
+             */
             @Override
             public void stateUpdated(BasicPlayerEvent bpe) {
                 int state = bpe.getCode();
@@ -78,12 +88,13 @@ public class MP3Player implements Player {
                 if (state == BasicPlayerEvent.EOM) {
                     MP3Player.this.playControlListener.playFinished();
                 }
-
             }
-
         });
     }
 
+    /**
+     * начать проигрывать песню
+     */
     @Override
     public void play(String fileName) {
 
@@ -112,6 +123,9 @@ public class MP3Player implements Player {
         return currentVolume;
     }
 
+    /**
+     * остановить песню
+     */
     @Override
     public void stop() {
         try {
@@ -121,6 +135,9 @@ public class MP3Player implements Player {
         }
     }
 
+    /**
+     * присоановить проигрывание на паузу
+     */
     @Override
     public void pause() {
         try {
@@ -130,19 +147,23 @@ public class MP3Player implements Player {
         }
     }
 
-    // регулирует звук при проигрывании песни
+    /**
+     * установить звук при проигрывании песни
+     */
+
     @Override
     public void setVolume(double controlValue) {
         try {
-
             currentVolume = calcVolume(controlValue);
             basicPlayer.setGain(currentVolume);
-
         } catch (BasicPlayerException ex) {
             Logger.getLogger(MP3Player.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * перемотка песни
+     */
     @Override
     public void jump(double controlPosition) {
         try {

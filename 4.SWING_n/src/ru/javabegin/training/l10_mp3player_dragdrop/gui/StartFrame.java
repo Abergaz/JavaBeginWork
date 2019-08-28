@@ -26,11 +26,11 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class StartFrame extends javax.swing.JFrame implements PlayControlListener {
 
-    private Player player;
-    private PlayList playList;
+    private Player player; //проигрыватель
+    private PlayList playList; //плейлист
 
-    private FileFilter playlistFileFilter = new PlaylistFileFilter(PLAYLIST_FILE_EXTENSION, PLAYLIST_FILE_DESCRIPTION);
-    private FileFilter mp3FileFilter = new PlaylistFileFilter(MP3_FILE_EXTENSION, MP3_FILE_DESCRIPTION);
+    private FileFilter playlistFileFilter = new PlaylistFileFilter(PLAYLIST_FILE_EXTENSION, PLAYLIST_FILE_DESCRIPTION); //создаем фильтр для выбора плей листа
+    private FileFilter mp3FileFilter = new PlaylistFileFilter(MP3_FILE_EXTENSION, MP3_FILE_DESCRIPTION);//создаем фильтр для выбора mp3 файла
 
     private static final String INPUT_SONG_NAME = "введите имя песни";
 
@@ -38,40 +38,56 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
 
     private boolean moveAutomatic = false;// false - во время проигрывании песни ползунок передвигается, true - передвигается вручную
 
+    /**
+     * Реализация слушателя  интерфейся PlayControlListener
+     * вызывается при начале пригрывания песни плеером и устанавливает в лейбел имя текущей песни
+     */
     @Override
     public void playStarted(String name) {
         labelSongName.setText(name);
     }
 
+    /**
+     * Реализация слушателя  интерфейся PlayControlListener
+     * вызывается при проигрывании песни плеером и двигает slideProgress
+     */
     @Override
     public void processScroll(int position) {
-        if (moveAutomatic) {
-            slideProgress.setValue(position);
+        if (moveAutomatic) {//если слайдер не двигуют руками в данный момент то
+            slideProgress.setValue(position);//передвигаем слайдер
         }
     }
 
+    /**
+     * Реализация слушателя  интерфейся PlayControlListener
+     * вызывается при завершении проигрывания песни  и переходит к следующей песни
+     */
     @Override
     public void playFinished() {
         playList.next();
     }
 
+    /**
+     * главный метод при  запуске приложения
+     */
     public StartFrame() {
-        initComponents();
-        player = new MP3Player(this);
-        playList = new MP3PlayList(lstPlayList, player);
-        player.setVolume(slideVolume.getValue());
-        slideVolume.setMaximum(MP3Player.MAX_VOLUME);
+        initComponents(); //нинициализация компонентов
+        player = new MP3Player(this); //создание плеера
+        playList = new MP3PlayList(lstPlayList, player); //создние плейлиста
+        player.setVolume(slideVolume.getValue());// установка громкости плеера
+        slideVolume.setMaximum(MP3Player.MAX_VOLUME);// устноака максибальной горомкости
     }
 
+    /**
+     * поиск песни
+     */
     private void searchSong() {
-        String name = txtSearch.getText().trim();
-        if (!playList.search(name)) {
+        String name = txtSearch.getText().trim();//берем текст из поля для поиска
+        if (!playList.search(name)) {//вызываем поиск в плейлисте и если ничего не нашли показываем сообщение
             JOptionPane.showMessageDialog(this, "Поиск по строке \'" + name + "\' не дал результатов");
-            txtSearch.requestFocus();
-            txtSearch.selectAll();
-
+            txtSearch.requestFocus();//возвращаем фокус в поле для поиска
+            txtSearch.selectAll();// выделеям в нем весь текст
         }
-
     }
 
     /**
@@ -532,36 +548,57 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPlaySongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaySongActionPerformed
+    /**
+     *нажата кнопка плей
+     */
+     private void btnPlaySongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaySongActionPerformed
         playList.playFile();
     }//GEN-LAST:event_btnPlaySongActionPerformed
 
+    /**
+     *нажата кнопка стоп
+     */
     private void btnStopSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopSongActionPerformed
         player.stop();
     }//GEN-LAST:event_btnStopSongActionPerformed
 
+    /**
+     *нажата кнопка пауза
+     */
     private void btnPauseSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseSongActionPerformed
         player.pause();
     }//GEN-LAST:event_btnPauseSongActionPerformed
 
+    /**
+     *двигают слайдер изменения кромкости
+     */
     private void slideVolumeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slideVolumeStateChanged
         player.setVolume(slideVolume.getValue());
 
         if (slideVolume.getValue() == 0) {
-            tglbtnVolume.setSelected(true);
+            tglbtnVolume.setSelected(true);//если громкость 0 то показываем кнопку mute
         } else {
-            tglbtnVolume.setSelected(false);
+            tglbtnVolume.setSelected(false);//иначе скрываем кнопку mute
         }
     }//GEN-LAST:event_slideVolumeStateChanged
 
+    /**
+     *нажата кнопка следующая песня
+     */
     private void btnNextSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextSongActionPerformed
         playList.next();
     }//GEN-LAST:event_btnNextSongActionPerformed
 
+    /**
+     *нажата кнопка предудущая песня
+     */
     private void btnPrevSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevSongActionPerformed
         playList.prev();
     }//GEN-LAST:event_btnPrevSongActionPerformed
 
+    /**
+     *нажата кнопка добавить песню
+     */
     private void btnAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSongActionPerformed
         FileUtils.addFileFilter(fileChooser, mp3FileFilter);
         int result = fileChooser.showOpenDialog(this);// result хранит результат: выбран файл или нет
@@ -571,26 +608,42 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         }
     }//GEN-LAST:event_btnAddSongActionPerformed
 
+
+    /**
+     *нажата кнопка удалить песню
+     */
     private void btnDeleteSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSongActionPerformed
         playList.delete();
     }//GEN-LAST:event_btnDeleteSongActionPerformed
 
+    /**
+     *нажата кнопка удалить песню
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         searchSong();
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    /**
+     * установлен фокус в поле для поиска
+     */
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
         if (txtSearch.getText().equals(INPUT_SONG_NAME)) {
             txtSearch.setText(EMPTY_STRING);
         }
     }//GEN-LAST:event_txtSearchFocusGained
 
+    /**
+     * потерян фокус в поле для поиска
+     */
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         if (txtSearch.getText().trim().equals(EMPTY_STRING)) {
             txtSearch.setText(INPUT_SONG_NAME);
         }
     }//GEN-LAST:event_txtSearchFocusLost
 
+    /**
+     * нажат пункт меню сохранить плей лист
+     */
     private void menuSavePlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSavePlaylistActionPerformed
         FileUtils.addFileFilter(fileChooser, playlistFileFilter);
         int result = fileChooser.showSaveDialog(this);
@@ -615,6 +668,9 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
 
     }//GEN-LAST:event_menuSavePlaylistActionPerformed
 
+    /**
+     * нажат пункт меню открыть плей лист
+     */
     private void menuOpenPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenPlaylistActionPerformed
         FileUtils.addFileFilter(fileChooser, playlistFileFilter);
         int result = fileChooser.showOpenDialog(this);// result хранит результат: выбран файл или нет
@@ -625,20 +681,33 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
 
     }//GEN-LAST:event_menuOpenPlaylistActionPerformed
 
+    /**
+     * нажат пункт меню выход
+     */
     private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuExitActionPerformed
 
+    /**
+     * нажат пункт меню выбрать скин1
+     */
     private void menuSkin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSkin1ActionPerformed
         SkinUtils.changeSkin(this, UIManager.getSystemLookAndFeelClassName());
         fileChooser.updateUI();
     }//GEN-LAST:event_menuSkin1ActionPerformed
 
+    /**
+     * нажат пункт меню выбрать скин2
+     */
     private void menuSkin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSkin2ActionPerformed
         SkinUtils.changeSkin(this, new NimbusLookAndFeel());
         fileChooser.updateUI();
     }//GEN-LAST:event_menuSkin2ActionPerformed
+
     private int currentVolumeValue;
+    /**
+     * изменили положение слайдера громкости
+     */
     private void tglbtnVolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglbtnVolumeActionPerformed
 
         if (tglbtnVolume.isSelected()) {
@@ -649,34 +718,58 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         }
     }//GEN-LAST:event_tglbtnVolumeActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  добавить песню
+     */
     private void popmenuAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuAddSongActionPerformed
         btnAddSongActionPerformed(evt);
     }//GEN-LAST:event_popmenuAddSongActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  удалить песню
+     */
     private void popmenuDeleteSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuDeleteSongActionPerformed
         btnDeleteSongActionPerformed(evt);
     }//GEN-LAST:event_popmenuDeleteSongActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  открыть плей лист
+     */
     private void popmenuOpenPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuOpenPlaylistActionPerformed
         menuOpenPlaylistActionPerformed(evt);
     }//GEN-LAST:event_popmenuOpenPlaylistActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  очистить плейлист
+     */
     private void popmenuClearPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuClearPlaylistActionPerformed
         playList.clear();
     }//GEN-LAST:event_popmenuClearPlaylistActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  плей
+     */
     private void popmenuPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuPlayActionPerformed
         btnPlaySongActionPerformed(evt);
     }//GEN-LAST:event_popmenuPlayActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню стоп
+     */
     private void popmenuStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuStopActionPerformed
         btnStopSongActionPerformed(evt);
     }//GEN-LAST:event_popmenuStopActionPerformed
 
+    /**
+     * нажата кнопка всплывающего меню  пауза
+     */
     private void popmenuPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popmenuPauseActionPerformed
         btnPauseSongActionPerformed(evt);
     }//GEN-LAST:event_popmenuPauseActionPerformed
 
+    /**
+     * нажата кнопка ентер в поле для поиска
+     */
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
@@ -684,6 +777,9 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         }
     }//GEN-LAST:event_txtSearchKeyPressed
 
+    /**
+     * отпустили полузунок перепотки песни
+     */
     private void slideProgressMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slideProgressMouseReleased
         if (slideProgress.getValueIsAdjusting() == false) {
             posValue = slideProgress.getValue() * 1.0 / 1000;
@@ -693,6 +789,9 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         moveAutomatic = true;
     }//GEN-LAST:event_slideProgressMouseReleased
 
+    /**
+     * нажата кнопка всплывающего меню  очистить плейлист
+     */
     private void slideProgressMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slideProgressMousePressed
         moveAutomatic = false;
     }//GEN-LAST:event_slideProgressMousePressed
@@ -742,45 +841,45 @@ public class StartFrame extends javax.swing.JFrame implements PlayControlListene
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddSong;
-    private javax.swing.JButton btnDeleteSong;
-    private javax.swing.JButton btnNextSong;
-    private javax.swing.JButton btnPauseSong;
-    private javax.swing.JButton btnPlaySong;
-    private javax.swing.JButton btnPrevSong;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnStopSong;
-    private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton btnAddSong; //кнопка доабвить песню
+    private javax.swing.JButton btnDeleteSong;//кнопка удалить песню
+    private javax.swing.JButton btnNextSong;//кнопка следущая песня
+    private javax.swing.JButton btnPauseSong;//кнопка пауза
+    private javax.swing.JButton btnPlaySong;//кнопка проиграть
+    private javax.swing.JButton btnPrevSong;//кнопка предудущая песня
+    private javax.swing.JButton btnSearch;//кнопка найти
+    private javax.swing.JButton btnStopSong;//кнопка стоп
+    private javax.swing.JFileChooser fileChooser;//окно выбора файлов
+    private javax.swing.JMenuBar jMenuBar1;//верхняя панель меню
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JLabel labelSongName;
-    private javax.swing.JList lstPlayList;
-    private javax.swing.JMenu menuChangeSkin;
-    private javax.swing.JMenuItem menuExit;
-    private javax.swing.JMenu menuFile;
-    private javax.swing.JMenuItem menuOpenPlaylist;
-    private javax.swing.JMenu menuPrefs;
-    private javax.swing.JMenuItem menuSavePlaylist;
+    private javax.swing.JLabel labelSongName;//текущая проигрываемая песня
+    private javax.swing.JList lstPlayList; // плейлист
+    private javax.swing.JMenu menuChangeSkin; // меню по смене скина
+    private javax.swing.JMenuItem menuExit;//элемент меню выйти
+    private javax.swing.JMenu menuFile; // меню файл
+    private javax.swing.JMenuItem menuOpenPlaylist;//элемент меню открыть плейлист
+    private javax.swing.JMenu menuPrefs;//меню сервис, содержит меню по смене скина
+    private javax.swing.JMenuItem menuSavePlaylist;//элемент меню выйти
     private javax.swing.JPopupMenu.Separator menuSeparator;
-    private javax.swing.JMenuItem menuSkin1;
-    private javax.swing.JMenuItem menuSkin2;
-    private javax.swing.JPanel panelMain;
-    private javax.swing.JPanel panelSearch;
-    private javax.swing.JMenuItem popmenuAddSong;
+    private javax.swing.JMenuItem menuSkin1; //элемент меню сменить скин 1
+    private javax.swing.JMenuItem menuSkin2;//элемент меню сменить скин 2
+    private javax.swing.JPanel panelMain;//главна панель
+    private javax.swing.JPanel panelSearch;// панель для поиска
+    private javax.swing.JMenuItem popmenuAddSong; //эдемент для всплывающего меню
     private javax.swing.JMenuItem popmenuClearPlaylist;
     private javax.swing.JMenuItem popmenuDeleteSong;
     private javax.swing.JMenuItem popmenuOpenPlaylist;
     private javax.swing.JMenuItem popmenuPause;
     private javax.swing.JMenuItem popmenuPlay;
     private javax.swing.JMenuItem popmenuStop;
-    private javax.swing.JPopupMenu popupPlaylist;
-    public static javax.swing.JSlider slideProgress;
-    private javax.swing.JSlider slideVolume;
-    private javax.swing.JToggleButton tglbtnVolume;
-    private javax.swing.JTextField txtSearch;
+    private javax.swing.JPopupMenu popupPlaylist; //всплывающее меню
+    public static javax.swing.JSlider slideProgress; // слайдер для отображения прогресса проигрывания песни
+    private javax.swing.JSlider slideVolume; // слайдер для громкости
+    private javax.swing.JToggleButton tglbtnVolume; // кнопка mute
+    private javax.swing.JTextField txtSearch; // поле для поиска
     // End of variables declaration//GEN-END:variables
 
 }

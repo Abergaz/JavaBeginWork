@@ -5,7 +5,9 @@ import ru.javabegin.training.l10_mp3player_dragdrop.utils.FileUtils;
 import java.io.Serializable;
 import java.util.Objects;
 
-
+/**
+ * Класс представляющий обьект mp3
+ */
 public class MP3 implements Serializable{
 
     private String name;

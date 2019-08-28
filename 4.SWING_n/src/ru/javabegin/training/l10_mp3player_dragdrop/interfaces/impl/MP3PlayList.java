@@ -19,19 +19,20 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
-
-// плейлист на основе компонента JList
+/**
+ * плейлист на основе компонента JList
+ */
 public class MP3PlayList implements PlayList {
 
-    public static final String PLAYLIST_FILE_EXTENSION = "pls";
-    public static final String PLAYLIST_FILE_DESCRIPTION = "Файлы плейлиста";
+    public static final String PLAYLIST_FILE_EXTENSION = "pls";//фильтр для расширения файлов отображаемых в диалоге выбора файлов
+    public static final String PLAYLIST_FILE_DESCRIPTION = "Файлы плейлиста";//описание выбираемых файлов отображаемых в диалоге выбора файлов
 
     private static final String EMPTY_STRING = "";
 
-    private Player player;
+    private Player player; //плееер
 
-    private JList playlist;
-    private DefaultListModel model = new DefaultListModel();
+    private JList playlist; // плейлист типа JList из фрейма
+    private DefaultListModel model = new DefaultListModel();//дефолтная модель данных для элемента JList
 
     public MP3PlayList(JList playlist, Player player) {
         this.playlist = playlist;
@@ -40,6 +41,9 @@ public class MP3PlayList implements PlayList {
         initPlayList();
     }
 
+    /**
+     * переход к следлующей песне плейлиста
+     */
     @Override
     public void next() {
         int nextIndex = playlist.getSelectedIndex() + 1;
@@ -49,6 +53,9 @@ public class MP3PlayList implements PlayList {
         }
     }
 
+    /**
+     * переход к предыдущей песне плейлиста
+     */
     @Override
     public void prev() {
         int nextIndex = playlist.getSelectedIndex() - 1;
@@ -58,6 +65,9 @@ public class MP3PlayList implements PlayList {
         }
     }
 
+    /**
+     * поиск песни в плей листе
+     */
     @Override
     public boolean search(String name) {
 
@@ -94,7 +104,9 @@ public class MP3PlayList implements PlayList {
 
         return true;
     }
-
+    /**
+     * сохранить плей лист в файл
+     */
     @Override
     public boolean savePlaylist(File file) {
         try {
@@ -111,6 +123,9 @@ public class MP3PlayList implements PlayList {
         return false;
     }
 
+    /**
+     * дабавить файлы в плей лист
+     */
     @Override
     public boolean openFiles(File[] files) {
 
@@ -129,9 +144,12 @@ public class MP3PlayList implements PlayList {
         return status;
     }
 
+    /**
+     * проиграть текущую песню
+     */
     @Override
     public void playFile() {
-        int[] indexPlayList = playlist.getSelectedIndices();// получаем выбранные индексы(порядковый номер) песен
+        int[] indexPlayList = playlist.getSelectedIndices();// получаем выбранные индексы(порядковый номер) песен из поля playlist
         if (indexPlayList.length > 0) {// если выбрали хотя бы одну песню
             Object selectedItem = model.getElementAt(indexPlayList[0]);
             if (!(selectedItem instanceof MP3)) {
@@ -143,6 +161,9 @@ public class MP3PlayList implements PlayList {
 
     }
 
+    /**
+     * открыть плейлист их файла
+     */
     @Override
     public boolean openPlayList(File file) {
         try {
@@ -156,6 +177,9 @@ public class MP3PlayList implements PlayList {
         return false;
     }
 
+    /**
+     * удалить песни из плейлиста
+     */
     @Override
     public void delete() {
         int[] indexPlayList = playlist.getSelectedIndices();// получаем выбранные индексы(порядковый номер) песен
@@ -177,16 +201,23 @@ public class MP3PlayList implements PlayList {
         }
     }
 
+    /**
+     * очистить плей лист
+     */
     @Override
     public void clear() {
         model.clear();
     }
 
+    /**
+     * инициализировть плей лист
+     */
     private void initPlayList() {
 
-        playlist.setModel(model);
-        playlist.setToolTipText("Список песен");
+        playlist.setModel(model);// устанавливаем модель для полу playlist типа JList
+        playlist.setToolTipText("Список песен"); //всплывающая подскаска при наведении на поле playlist
 
+        //добавляем слушателя событий мыши для поля playlist типа JList
         playlist.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,6 +228,7 @@ public class MP3PlayList implements PlayList {
             }
         });
 
+        //добавляем слушателя событий клавитуры для поля playlist типа JList
         playlist.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -208,13 +240,13 @@ public class MP3PlayList implements PlayList {
         });
     }
 
-    private DropTarget dropTarget;
+    private DropTarget dropTarget; //элемент для перетаскивания из стандартной библиотки awt
 
     private void initDragDrop() {
 
         try {
-            dropTarget = new DropTarget(playlist, DnDConstants.ACTION_COPY_OR_MOVE, null);
-            dropTarget.addDropTargetListener(new JListDropHandler(playlist));
+            dropTarget = new DropTarget(playlist, DnDConstants.ACTION_COPY_OR_MOVE, null); //связыаем поле playlist типа JList с DropTarget
+            dropTarget.addDropTargetListener(new JListDropHandler(playlist)); //устанавливанем слушателя событий для перетаскивания
 
         } catch (TooManyListenersException ex) {
             Logger.getLogger(MP3PlayList.class.getName()).log(Level.SEVERE, null, ex);
