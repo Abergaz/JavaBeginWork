@@ -1,4 +1,4 @@
-package patternsdemo.factorymethod;
+package patternsdemo.l2_factorymethod;
 
 // можно использовать абстрактный класс, если нужно задать реализацию метода по-умолчанию
 public interface Car {

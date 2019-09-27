@@ -1,4 +1,4 @@
-package patternsdemo.factorymethod;
+package patternsdemo.l2_factorymethod;
 
 // фабрика по созданию автомобилей
 public class CarSelector {

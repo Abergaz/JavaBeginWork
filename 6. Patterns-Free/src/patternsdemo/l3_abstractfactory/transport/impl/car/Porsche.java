@@ -1,6 +1,9 @@
-package patternsdemo.factorymethod;
+package patternsdemo.l3_abstractfactory.transport.impl.car;
 
-public class Porsche implements Car{
+
+import patternsdemo.l3_abstractfactory.transport.interfaces.Car;
+
+public class Porsche implements Car {
 
     @Override
     public void drive() {

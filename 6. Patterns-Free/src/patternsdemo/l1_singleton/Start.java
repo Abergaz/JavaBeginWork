@@ -1,4 +1,4 @@
-package patternsdemo.singleton;
+package patternsdemo.l1_singleton;
 
 public class Start {
 
