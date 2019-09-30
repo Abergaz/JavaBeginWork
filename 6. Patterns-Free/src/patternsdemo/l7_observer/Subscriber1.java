@@ -1,6 +1,6 @@
-package patternsdemo.l7_Observer;
+package patternsdemo.l7_observer;
 
-public class Subscriber2 implements PublisherActionListener{
+public class Subscriber1 implements PublisherActionListener{
 
     @Override
     public void doAction(String message) {

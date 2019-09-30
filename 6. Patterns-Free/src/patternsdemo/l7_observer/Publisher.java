@@ -1,4 +1,4 @@
-package patternsdemo.l7_Observer;
+package patternsdemo.l7_observer;
 
 import java.util.ArrayList;
 
