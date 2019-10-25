@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/1.JavaBeginWork_Basic.iml" filepath="$PROJECT_DIR$/1.JavaBeginWork_Basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/1.OOP_Free/1.OOP_Free.iml" filepath="$PROJECT_DIR$/1.OOP_Free/1.OOP_Free.iml" />
       <module fileurl="file://$PROJECT_DIR$/2.OOP_n/2.OOP_n.iml" filepath="$PROJECT_DIR$/2.OOP_n/2.OOP_n.iml" />
       <module fileurl="file://$PROJECT_DIR$/3.SWING_Free/3.SWING_Free.iml" filepath="$PROJECT_DIR$/3.SWING_Free/3.SWING_Free.iml" />
       <module fileurl="file://$PROJECT_DIR$/4.SWING_n/4.SWING_n.iml" filepath="$PROJECT_DIR$/4.SWING_n/4.SWING_n.iml" />
       <module fileurl="file://$PROJECT_DIR$/5. BD_n/5. BD_n.iml" filepath="$PROJECT_DIR$/5. BD_n/5. BD_n.iml" />
       <module fileurl="file://$PROJECT_DIR$/6. Patterns-Free/6. Patterns-Free.iml" filepath="$PROJECT_DIR$/6. Patterns-Free/6. Patterns-Free.iml" />
-      <module fileurl="file://$PROJECT_DIR$/JavaBeginWork.iml" filepath="$PROJECT_DIR$/JavaBeginWork.iml" />
     </modules>
   </component>
 </project>
