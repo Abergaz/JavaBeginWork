@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.javabegin.training.game.goldman_5.gui;
+package com.javabegin.training.game.goldman_5h.gui;
 
 
-import com.javabegin.training.game.goldman_5.enums.LocationType;
-import com.javabegin.training.game.goldman_5.objects.gui.maps.JTableGameMap;
+import com.javabegin.training.game.goldman_5h.enums.LocationType;
+import com.javabegin.training.game.goldman_5h.objects.gui.maps.JTableGameMap;
 
 /**
  *
@@ -18,7 +18,7 @@ public class FrameMainMenu extends javax.swing.JFrame {
     private FrameStat frameStat = new FrameStat();
     private FrameSavedGames frameLoadGame = new FrameSavedGames();
     
-    private JTableGameMap gameMap = new JTableGameMap(LocationType.FS, getClass().getResource("/com/javabegin/training/game/goldman_5/game.map"));
+    private JTableGameMap gameMap = new JTableGameMap(LocationType.FS, getClass().getResource("/com/javabegin/training/game/goldman_5h/game.map"));
     
 
     /**
@@ -53,7 +53,7 @@ public class FrameMainMenu extends javax.swing.JFrame {
         jpnlMainMenu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jbtnNewGame.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jbtnNewGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5/images/new.png"))); // NOI18N
+        jbtnNewGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5h/images/new.png"))); // NOI18N
         jbtnNewGame.setText("Новая игра");
         jbtnNewGame.setToolTipText("Создать новую игру");
         jbtnNewGame.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -61,7 +61,7 @@ public class FrameMainMenu extends javax.swing.JFrame {
         jbtnNewGame.addActionListener(formListener);
 
         jbtnLoadGame.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jbtnLoadGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5/images/load.png"))); // NOI18N
+        jbtnLoadGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5h/images/load.png"))); // NOI18N
         jbtnLoadGame.setText("Загрузить игру");
         jbtnLoadGame.setToolTipText("Загрузить сохраненную игру ");
         jbtnLoadGame.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -69,7 +69,7 @@ public class FrameMainMenu extends javax.swing.JFrame {
         jbtnLoadGame.addActionListener(formListener);
 
         jbtnStatistics.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jbtnStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5/images/stat.png"))); // NOI18N
+        jbtnStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5h/images/stat.png"))); // NOI18N
         jbtnStatistics.setText("Статистика");
         jbtnStatistics.setToolTipText("Посмотреть статистику по игрокам");
         jbtnStatistics.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -77,7 +77,7 @@ public class FrameMainMenu extends javax.swing.JFrame {
         jbtnStatistics.addActionListener(formListener);
 
         jbtnExit.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5/images/exit.png"))); // NOI18N
+        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/goldman_5h/images/exit.png"))); // NOI18N
         jbtnExit.setText("Выход");
         jbtnExit.setToolTipText("Выйти из игры");
         jbtnExit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -136,7 +136,6 @@ public class FrameMainMenu extends javax.swing.JFrame {
 
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
-        @Override
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == jbtnNewGame) {
                 FrameMainMenu.this.jbtnNewGameActionPerformed(evt);
