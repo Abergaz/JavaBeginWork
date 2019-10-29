@@ -1,0 +1,19 @@
+package com.javabegin.training.game.goldman_6h.interfaces.gameobjects;
+
+import com.javabegin.training.game.goldman_6h.abstracts.AbstractGameObject;
+
+import java.util.List;
+
+
+public interface MoveListener {
+
+    List<GameObjectMoveListener> getListeners();
+
+    void addListener(GameObjectMoveListener listener);
+
+    public void removeListener(GameObjectMoveListener listener);
+
+    public void removeAllListeners();
+
+    public void notifyListeners(AbstractGameObject obj1, AbstractGameObject obj2);
+}
