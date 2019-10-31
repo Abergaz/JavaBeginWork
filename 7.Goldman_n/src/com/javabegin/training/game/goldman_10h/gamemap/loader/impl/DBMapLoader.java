@@ -208,7 +208,7 @@ public class DBMapLoader extends AbstractMapLoader {
             for (int i = 0; i < lines.length; i++) {
                 x = 0; // чтобы каждый раз с первого столбца начинал
 
-                for (String str : lines[i].split(",")) {
+                for (String str : lines[i].replace("\n",",").split(",")) {
                     // вытаскивать все значения в строке между запятыми, чтобы заполнить карту элементами
                     createGameObject(str, new Coordinate(x, y));
                     x++;
